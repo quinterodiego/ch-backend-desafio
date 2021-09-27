@@ -1,38 +1,40 @@
+const express = require('express');
+
 const Contenedor = require('./contenedor');
+
+const server = express();
 
 const miContenedor = new Contenedor('products.json');
 
-const miProducto = {
-    nombre: 'Producto1',
-    precio: 1000
+const PORT = 8080;
+const PATH = '/';
+
+const callback = (req, res, next) => {
+    res.send({ message: 'HOME' });
 }
 
-const MostrarIDProducto = async () => {
-    const productoId = await miContenedor.save(miProducto);
+const productoRandom = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-    console.log("El ID del producto es: ", productoId); 
+// HOME
+server.get(PATH, callback);
+
+// Muestro todos los productos
+server.get('/products', async (req, res) => {
+    const data = await miContenedor.getAll();
+    res.json(data);
+})
+
+// Producto Random
+server.get('/productsRandom', async (req, res) => {
+    const id = productoRandom(1, 3)
+    const data = await miContenedor.getAll();
+    res.json(data[id - 1]);
+})
+
+const callbackInit = () => {
+    console.log(`Server corriendo en el puerto: ${PORT}`);
 }
 
-const BuscarPorId = async (id) => {
-    await miContenedor.getById(id);
-}
+server.listen(PORT, callbackInit);
 
-const ListarProductos = async () => {
-    const productos = await miContenedor.getAll();
-    console.log("Lista de todos los productos: \n", productos);
-}
-
-
-const EliminarPorId = async (id) => {
-    await miContenedor.deleteById(id);
-}
-
-const EliminarTodosLosProductos = async () => {
-    await miContenedor.deleteAll();
-}
-
-// MostrarIDProducto();
-// BuscarPorId(3);
-// ListarProductos();
-// EliminarPorId(2);
-// EliminarTodosLosProductos();
+server.on('error', (error) => console.log('Error --> ', error));
