@@ -1,11 +1,11 @@
 const fs = require('fs');
 
 class Contenedor {
-    constructor(file) {
+    constructor (file) {
         this.file = file;
     }
 
-    async save(producto) {
+    async save (producto) {
 
         try{
             const data = await fs.promises.readFile(`./${this.file}`, 'utf-8');
@@ -33,18 +33,19 @@ class Contenedor {
 
     }
 
-    async getById(id) {
+    async getById (id) {
         try {
             const data = await fs.promises.readFile(`./${this.file}`, 'utf-8');
             const productos = JSON.parse(data);
-            const productoEncontrado = productos.find(producto => producto.id === id);
-            console.log(productoEncontrado);
+            const productoEncontrado = productos.find(producto => producto.id === parseInt(id));
+            console.log('Producto: ', productoEncontrado);
+            return productoEncontrado;
         } catch (error) {
             console.error('Error: ', error);
         }
     }
 
-    async getAll() {
+    async getAll () {
         try{
             const data = await fs.promises.readFile(`./${this.file}`, 'utf-8');
             const productos = JSON.parse(data);
@@ -55,7 +56,7 @@ class Contenedor {
         }
     }
 
-    async deleteById(id) {
+    async deleteById (id) {
         try {
             const data = await fs.promises.readFile(`./${this.file}`, 'utf-8');
             const productos = JSON.parse(data);
@@ -66,13 +67,37 @@ class Contenedor {
         }
     }
 
-    async deleteAll() {
+    async deleteAll () {
         try{
             await fs.promises.writeFile(`./${this.file}`, '', 'utf-8');
         }
         catch(error) {
             console.error('Error: ', error);
         }
+    }
+
+    async update (id, producto) {
+        const list = await this.getAll();
+
+        const productSaved = list.find(item => item.id === parseInt(id));
+        const productIndex = list.findIndex(item => item.id === parseInt(id));
+
+        if (!productSaved) {
+            console.error(`Producto con id: ${id} no fue encontrado`);
+            return null;
+        }
+
+        const productUpdated = {
+            ...productSaved,
+            ...producto
+        };
+
+        list[productIndex] = productUpdated;
+
+        const productsString = JSON.stringify(list, null, 2);
+        await fs.promises.writeFile(`./${this.file}`, productsString, 'utf-8');
+
+        return productUpdated;
     }
 }
 
