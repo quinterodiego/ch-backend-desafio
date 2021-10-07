@@ -60,8 +60,11 @@ class Contenedor {
         try {
             const data = await fs.promises.readFile(`./${this.file}`, 'utf-8');
             const productos = JSON.parse(data);
-            const nuevosProductos = productos.filter(producto => producto.id !== id);
-            console.log(nuevosProductos);
+            const nuevosProductos = productos.filter(producto => producto.id !== parseInt(id));
+            
+            const productsString = JSON.stringify(nuevosProductos, null, 2);
+            await fs.promises.writeFile(`./${this.file}`, productsString, 'utf-8');
+            return nuevosProductos;
         } catch (error) {
             console.error('Error: ', error);
         }

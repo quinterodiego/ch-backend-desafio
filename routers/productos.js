@@ -56,4 +56,26 @@ productosRouter.put('/:id', async (req, res) => {
     })
 });
 
+productosRouter.delete('/:id', async (req, res) => {
+    const productoId = req.params.id;
+    const newProducts = await productosContenedor.deleteById(productoId);
+
+    if (!newProducts) {
+        res.send({
+            message: 'Operation wrongt',
+            data: newProducts
+        })
+    } else {
+        res.send({
+            message: 'Operation successfull',
+            data: newProducts
+        })
+    }
+
+    res.send({
+        message: "operation successfull",
+        data: newProducts
+    })
+});
+
 module.exports = productosRouter;
