@@ -27,9 +27,9 @@ productosRouter.post('/', async (req, res) => {
     const newProduct = req.body;
     console.log({ newProduct });
     const productoSavedID = await productosContenedor.save(newProduct);
-    res.send({ 
-        message: 'success',
-        data: { ...newProduct }
+    const lista = await productosContenedor.getAll();
+    res.render('pages/productos', {
+    lista
     });
 });
 

@@ -1,17 +1,18 @@
 const express = require('express');
-const productosRouter = require('./routers/productos');
-
 const server = express();
 
-const PORT = 8080;
+const productosRouter = require('./routers/productos');
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-server.use(express.static('public'));
+server.use('/list-productos', productosRouter);
 
-server.use('/api/productos', productosRouter);
+server.set('view engine', 'ejs');
 
-server.listen(PORT, () => console.log(`Servidor corriendo en el puerto: ${PORT}`));
+server.get('/', (req, res) => {
+  res.render('pages/index');
+});
 
-server.on('error', (error) => console.log('Error --> ', error));
+const PORT = 8080;
+server.listen(PORT, () => console.log(`Servidor iniciado en el puerto ${PORT}`));

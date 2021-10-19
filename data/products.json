@@ -1,17 +1,14 @@
 [
   {
-    "id": 1,
-    "nombre": "Producto 1",
-    "precio": 1000
+    "nombre": "iMac",
+    "precio": "450000",
+    "url": "https://cdn2.iconfinder.com/data/icons/flat-pack-1/64/Computer-128.png",
+    "id": 1
   },
   {
-    "id": 2,
-    "nombre": "Producto 2",
-    "precio": 2000
-  },
-  {
-    "id": 3,
-    "nombre": "Producto 3",
-    "precio": 3000
+    "nombre": "iMac",
+    "precio": "450000",
+    "url": "https://cdn2.iconfinder.com/data/icons/flat-pack-1/64/Computer-128.png",
+    "id": 2
   }
 ]
