@@ -10,5 +10,17 @@
     "precio": "450000",
     "url": "https://cdn2.iconfinder.com/data/icons/flat-pack-1/64/Computer-128.png",
     "id": 2
+  },
+  {
+    "nombre": "Diego Quintero",
+    "precio": "5000",
+    "url": "https://cdn2.iconfinder.com/data/icons/flat-pack-1/64/Computer-128.png",
+    "id": 3
+  },
+  {
+    "nombre": "Diego Quintero",
+    "precio": "5000",
+    "url": "https://cdn2.iconfinder.com/data/icons/flat-pack-1/64/Computer-128.png",
+    "id": 4
   }
 ]

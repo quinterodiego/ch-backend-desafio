@@ -6,7 +6,7 @@ const productosRouter = require('./routers/productos');
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-server.use('/list-productos', productosRouter);
+server.use('/api/productos', productosRouter);
 
 server.set('view engine', 'ejs');
 
