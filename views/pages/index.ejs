@@ -8,40 +8,51 @@
         <%- include('../partials/header'); %>
     </header>
     <main class="w-100">
-        <h1>Carga de productos</h1>
-        <form method="POST" action="/list-productos"  class="m-3" style="width: 40%;">
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Precio</label>
-                <input type="text" class="form-control" id="precio" name="precio" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">URL Imagen</label>
-                <input type="text" class="form-control" id="url" name="url" aria-describedby="emailHelp">
-            </div>
-            <button type="submit" class="btn btn-primary">Cargar</button>
-        </form>
-        <hr>
-        <h1>Listado de productos</h1>
-        <% if(typeof lista != 'undefined'){ %>
-            <h1>Listado de productos</h1>
-            <div class="d-flex flex-wrap">
-                <% lista.forEach((producto) => { %>
-                    <div class="card align-items-center flex-row" style="width: 30%;">
-                        <img class="card-img-top w-25" src=<%=producto.url%> alt="Card image cap">
-                        <div class="card-body">
-                            <h3 class="card-title">Nombre: <%= producto.nombre %></h3>
-                            <h5 class="card-title">Precio: <%= producto.precio %></h5>
+        <div class="container m-auto">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Carga de productos</h3>
+                    <form id="form" class="m-3" style="width: 100%;">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp">
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Precio</label>
+                            <input type="text" class="form-control" id="precio" name="precio" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">URL Imagen</label>
+                            <input type="text" class="form-control" id="url" name="url" aria-describedby="emailHelp">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cargar</button>
+                    </form>
+                    <hr>
+                    <h3>Chats de Usuarios</h3>
+                    <form id="formChats" class="m-3" style="width: 100%;">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Mensaje</label>
+                            <input type="text" class="form-control" id="mensaje" name="mensaje" aria-describedby="emailHelp">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                    <br>
+                    <h3>Mensajes</h3>
+                    <div id="messages"></div>
+                </div>
+                <div class="col-6">
+                    <h3>Listado de productos</h3>
+                    <br>
+                    <div id="lista-productos">
+                        
                     </div>
-                <% }) %>
+                </div>
             </div>
-        <% } else{ %>  
-            <h3>No hay productos cargados</h3>
-        <% } %>
+        </div>
     </main>
     <footer>
         <%- include('../partials/footer'); %>
