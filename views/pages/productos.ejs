@@ -10,10 +10,10 @@
     <main>
         <% if(typeof lista != 'undefined'){ %>
             <h1>Listado de productos</h1>
-            <div class="d-flex flex-wrap"></div>
+            <div class="d-flex flex-wrap">
                 <% lista.forEach((producto) => { %>
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src=<%=producto.url%> alt="Card image cap">
+                    <div class="card align-items-center flex-row" style="width: 30%;">
+                        <img class="card-img-top w-25" src=<%=producto.url%> alt="Card image cap">
                         <div class="card-body">
                             <h3 class="card-title">Nombre: <%= producto.nombre %></h3>
                             <h5 class="card-title">Precio: <%= producto.precio %></h5>

@@ -16,5 +16,11 @@
     "precio": "50000",
     "url": "https://cdn1.iconfinder.com/data/icons/aami-web-internet/64/aami16-23-128.png",
     "id": 3
+  },
+  {
+    "nombre": "iMac",
+    "precio": "10000",
+    "url": "https://cdn2.iconfinder.com/data/icons/flat-pack-1/64/Computer-128.png",
+    "id": 4
   }
 ]
