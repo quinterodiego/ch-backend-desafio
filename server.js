@@ -1,6 +1,7 @@
 const express = require('express');
 const server = express();
 
+<<<<<<< HEAD
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 const Contenedor = require('./Contenedor');
@@ -9,12 +10,23 @@ const { getMessages, saveMessage } = require('./data/chats.js');
 
 const httpServer = createServer(server);
 const io = new Server(httpServer);
+=======
+const productosRouter = require('./routers/productos');
+const cargaRouter = require('./routers/charge');
+const cartRouter = require('./routers/cart');
+>>>>>>> b3c6d53 (primera entrega proyecto final)
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+<<<<<<< HEAD
 server.use( express.static('public') );
 
+=======
+server.use('/carga', cargaRouter);
+server.use('/productos', productosRouter);
+server.use('/carrito', cartRouter);
+>>>>>>> b3c6d53 (primera entrega proyecto final)
 
 server.set('view engine', 'ejs');
 
@@ -43,6 +55,7 @@ io.on('connection', async socket => {
 });
 });
 
+<<<<<<< HEAD
 server.get('/' , (req, res) => {
   res.render('../views/pages/index')
 });
@@ -79,3 +92,20 @@ const http = httpServer.listen(PORT, () =>
 )
 
 http.on('error', error => console.log('Error en servidor:', error));
+=======
+server.get('/carga', (req, res) => {
+  res.render('pages/carga');
+});
+
+server.get('/productos', (req, res) => {
+  res.render('pages/productos');
+});
+
+
+server.get('/carrito', (req, res) => {
+  res.render('pages/carrito');
+});
+
+const PORT = 8080;
+server.listen(PORT, () => console.log(`Servidor iniciado en el puerto ${PORT}`));
+>>>>>>> b3c6d53 (primera entrega proyecto final)
