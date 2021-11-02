@@ -14,6 +14,8 @@ server.use('/carrito', cartRouter);
 
 server.set('view engine', 'ejs');
 
+const PORT = 8080;
+
 server.get('/', (req, res) => {
   res.render('pages/index');
 });
@@ -31,5 +33,4 @@ server.get('/carrito', (req, res) => {
   res.render('pages/carrito');
 });
 
-const PORT = 8080;
 server.listen(PORT, () => console.log(`Servidor iniciado en el puerto ${PORT}`));
