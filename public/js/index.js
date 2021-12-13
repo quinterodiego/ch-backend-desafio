@@ -1,11 +1,12 @@
 const socket = io.connect();
 
 const render = (data) => {
-    const html = data.map((element, index) => {
+    console.log("Data De mensajes: ", data);
+    const html = data.entities.messages.mensajes.mensajes.messages.map((element, index) => {
         return (`
             <div>
-                <strong>${element.email}</strong>
-                <strong>[${element.timestamp}]</strong>:
+                <strong>${element.author.id}</strong>
+                <strong>[${element.author.apellido}]</strong>:
                 <em>${element.mensaje}</em>
             </div>
         `);
@@ -33,4 +34,18 @@ const addMessage = (event) => {
 const formChats = document.getElementById('formChats');
 formChats.addEventListener('submit', addMessage);
 
-socket.on('messages', (data) => render(data));
+const schemaAuthor = new normalizr.schema.Entity('author', {}, { idAttribute: 'email' });  
+
+const schemaMessage = new normalizr.schema.Entity('message', {
+    author: schemaAuthor
+});
+
+const schemaMessages = new normalizr.schema.Entity('messages', {
+    messages: [schemaMessage]
+});
+
+socket.on('messages', (data) => {
+    const dataDeNormalized = normalizr.denormalize(data.result, schemaMessages, data.entities);
+    console.log(dataDeNormalized);
+    render(data)
+});

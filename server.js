@@ -3,6 +3,7 @@ const express = require('express');
 const server = express();
 const { createServer } = require('http');
 const { Server } = require('socket.io');
+const faker = require('faker');
 
 const productosRouter = require('./routers/productos');
 const cargaRouter = require('./routers/charge');
@@ -23,6 +24,15 @@ server.use('/productos', productosRouter);
 server.use('/carrito', cartRouter);
 
 server.set('view engine', 'ejs');
+
+const admin = require("firebase-admin");
+
+const options = require("./config");
+const serviceAccount = options.firestore;
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 const PORT = 3000;
 
@@ -65,6 +75,16 @@ server.get('/productos', (req, res) => {
 server.get('/carrito', (req, res) => {
   res.render('pages/carrito');
 });
+
+server.get('/api/products-test', (req, res) => {
+  const products = [...new Array(5)].map((_, index) => ({
+    id: index,
+    title: faker.commerce.product(),
+    price: faker.commerce.price(),
+    thumbnail: faker.image.imageUrl(),
+  }));
+  res.json(products);
+})
 
 const http = httpServer.listen(PORT, () => 
     console.log(`Servidor abierto en http://localhost:${PORT}/`)
